@@ -57,7 +57,7 @@ src/
 - Grid of ~6 animals (placeholder colored sprites with labels)
 - Tap animal → play voice clip ("Lion!") + sfx (roar) + bounce tween
 - `BackButton` → return to `HomeScene`
-- After tapping all animals → launch `RewardScene`
+- Tracks a `tappedSet: Set<string>`; once all 6 animals tapped → launch `RewardScene`
 
 ### MatchingScene
 - 3 item/target pairs (e.g. banana→yellow basket, lion→savanna, fish→water)
@@ -120,7 +120,7 @@ Mobile audio unlock handled automatically by Howler.js on first user interaction
 ```typescript
 AudioManager.playBgm(key: string): void
 AudioManager.playSfx(key: string): void
-AudioManager.playVoice(key: string): void
+AudioManager.playVoice(key: string): void  // interrupts current voice clip if playing
 AudioManager.setVolume(channel: 'bgm' | 'sfx' | 'voice', value: number): void
 ```
 
