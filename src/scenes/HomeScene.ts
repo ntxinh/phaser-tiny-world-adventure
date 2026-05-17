@@ -34,12 +34,12 @@ export class HomeScene extends Phaser.Scene {
     }).setOrigin(1, 0.5);
 
     const buildings: BuildingConfig[] = [
-      { texture: 'building_zoo',      x: 280, y: 340, label: 'Zoo',       targetScene: 'AnimalScene'  },
-      { texture: 'building_toyStore', x: 500, y: 340, label: 'Toy Store', targetScene: 'MatchingScene'},
-      { texture: 'building_locked',   x: 720, y: 340, label: '?',         targetScene: null           },
-      { texture: 'building_locked',   x: 280, y: 560, label: '?',         targetScene: null           },
-      { texture: 'building_locked',   x: 500, y: 560, label: '?',         targetScene: null           },
-      { texture: 'building_locked',   x: 720, y: 560, label: '?',         targetScene: null           },
+      { texture: 'building_zoo',          x: 280, y: 340, label: 'Zoo',        targetScene: 'AnimalScene'    },
+      { texture: 'building_toyStore',     x: 500, y: 340, label: 'Toy Store',  targetScene: 'MatchingScene'  },
+      { texture: 'building_paintHouse',   x: 720, y: 340, label: 'Paint',      targetScene: 'ColoringScene'  },
+      { texture: 'building_basketball',   x: 280, y: 560, label: 'Basketball', targetScene: 'BasketballScene'},
+      { texture: 'building_locked',       x: 500, y: 560, label: '?',          targetScene: null             },
+      { texture: 'building_locked',       x: 720, y: 560, label: '?',          targetScene: null             },
     ];
 
     buildings.forEach(({ texture, x, y, label, targetScene }) => {
