@@ -64,4 +64,21 @@ describe('SaveManager', () => {
     const restored = new SaveManager();
     expect(restored.getData().stars).toBe(0);
   });
+
+  it('addSticker adds key to stickers array', () => {
+    sm.addSticker('paintbrush');
+    expect(sm.getData().stickers).toContain('paintbrush');
+  });
+
+  it('addSticker persists to localStorage', () => {
+    sm.addSticker('paintbrush');
+    const restored = new SaveManager();
+    expect(restored.getData().stickers).toContain('paintbrush');
+  });
+
+  it('addSticker does not duplicate keys', () => {
+    sm.addSticker('paintbrush');
+    sm.addSticker('paintbrush');
+    expect(sm.getData().stickers.filter((k: string) => k === 'paintbrush').length).toBe(1);
+  });
 });

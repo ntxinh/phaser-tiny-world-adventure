@@ -63,6 +63,13 @@ export class SaveManager {
     }
   }
 
+  addSticker(key: string): void {
+    if (!this.data.stickers.includes(key)) {
+      this.data.stickers.push(key);
+      this.save();
+    }
+  }
+
   updateSettings(patch: Partial<SaveData['settings']>): void {
     this.data.settings = { ...this.data.settings, ...patch };
     this.save();
