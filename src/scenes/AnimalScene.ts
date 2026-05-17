@@ -11,6 +11,7 @@ interface AnimalConfig {
 
 export class AnimalScene extends Phaser.Scene {
   private tappedSet = new Set<string>();
+  private animalImages: Phaser.GameObjects.Image[] = [];
   private readonly animals: AnimalConfig[] = [
     { texture: 'animal_lion',     label: 'Lion',     voiceKey: 'voice_lion',     sfxKey: 'sfx_roar'    },
     { texture: 'animal_elephant', label: 'Elephant', voiceKey: 'voice_elephant', sfxKey: 'sfx_trumpet' },
@@ -24,6 +25,7 @@ export class AnimalScene extends Phaser.Scene {
 
   create(): void {
     this.tappedSet.clear();
+    this.animalImages = [];
 
     this.add.rectangle(512, 384, 1024, 768, 0xFFF8E7);
 
@@ -50,6 +52,7 @@ export class AnimalScene extends Phaser.Scene {
 
       const img = this.add.image(x, y, animal.texture)
         .setInteractive({ useHandCursor: true });
+      this.animalImages.push(img);
 
       this.add.text(x, y + 70, animal.label, {
         fontSize: '28px',
@@ -83,6 +86,7 @@ export class AnimalScene extends Phaser.Scene {
     this.tappedSet.add(animal.texture);
 
     if (this.tappedSet.size === this.animals.length) {
+      this.animalImages.forEach(a => a.disableInteractive());
       this.time.delayedCall(600, () =>
         this.scene.launch('RewardScene', { caller: 'AnimalScene' }),
       );
