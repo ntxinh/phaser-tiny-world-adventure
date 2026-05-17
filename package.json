@@ -1,0 +1,22 @@
+{
+  "name": "phaser-tiny-world-adventure",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "howler": "^2.2.4",
+    "phaser": "^3.88.0"
+  },
+  "devDependencies": {
+    "@types/howler": "^2.2.11",
+    "jsdom": "^24.1.0",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.13",
+    "vitest": "^1.6.0"
+  }
+}
