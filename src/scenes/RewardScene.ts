@@ -2,6 +2,18 @@ import Phaser from 'phaser';
 import AudioManager from '../audio/AudioManager';
 import SaveManager from '../save/SaveManager';
 
+interface StickerDef {
+  texture: string;
+  label: string;
+}
+
+const STICKER_MAP: Record<string, StickerDef> = {
+  AnimalScene:    { texture: 'sticker_lion',       label: 'Lion!' },
+  MatchingScene:  { texture: 'sticker_star',        label: 'Star!' },
+  coloring:       { texture: 'sticker_paintbrush',  label: 'Artist!' },
+  basketball:     { texture: 'sticker_basketball',  label: 'Champ!' },
+};
+
 export class RewardScene extends Phaser.Scene {
   private callerKey = '';
 
@@ -16,9 +28,9 @@ export class RewardScene extends Phaser.Scene {
     this.add.rectangle(512, 384, 1024, 768, 0x000000, 0.55);
 
     // Card
-    this.add.rectangle(512, 384, 620, 380, 0xFFF9C4).setStrokeStyle(6, 0xFFD700);
+    this.add.rectangle(512, 384, 620, 420, 0xFFF9C4).setStrokeStyle(6, 0xFFD700);
 
-    this.add.text(512, 300, 'Great Job!', {
+    this.add.text(512, 265, 'Great Job!', {
       fontSize: '64px',
       color: '#FF6F00',
       fontFamily: 'Arial',
@@ -30,12 +42,13 @@ export class RewardScene extends Phaser.Scene {
     SaveManager.addStars(3);
     const total = SaveManager.getData().stars;
 
-    this.add.text(512, 395, `★ ${total} stars total!`, {
+    this.add.text(512, 355, `★ ${total} stars total!`, {
       fontSize: '38px',
       color: '#5D4037',
       fontFamily: 'Arial',
     }).setOrigin(0.5);
 
+    this.showSticker();
     this.spawnConfetti();
 
     AudioManager.playVoice('voice_greatjob');
@@ -46,6 +59,39 @@ export class RewardScene extends Phaser.Scene {
       this.scene.stop('RewardScene');
       this.scene.start('HomeScene');
     });
+  }
+
+  private showSticker(): void {
+    const def = STICKER_MAP[this.callerKey];
+    if (!def) return;
+
+    const sticker = this.add.image(512, 460, def.texture).setScale(0);
+    this.add.text(512, 515, def.label, {
+      fontSize: '32px',
+      color: '#5D4037',
+      fontFamily: 'Arial',
+      fontStyle: 'bold',
+    }).setOrigin(0.5);
+
+    this.tweens.add({
+      targets: sticker,
+      scale: 1.3,
+      duration: 200,
+      ease: 'Back.Out',
+      onComplete: () => {
+        this.tweens.add({
+          targets: sticker,
+          scale: 1.0,
+          duration: 200,
+          ease: 'Sine.Out',
+        });
+      },
+    });
+
+    const data = SaveManager.getData();
+    if (!data.stickers.includes(def.texture)) {
+      SaveManager.addSticker(def.texture);
+    }
   }
 
   private spawnConfetti(): void {
