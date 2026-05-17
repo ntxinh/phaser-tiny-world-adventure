@@ -41,6 +41,30 @@ export class BootScene extends Phaser.Scene {
       { key: 'zone_water',        width: 140, height: 140, color: 0xE1F5FE, radius: 12 },
       // UI
       { key: 'btn_back', width: 100, height: 100, color: 0xEF5350, radius: 50 },
+      // Phase 2 buildings
+      { key: 'building_paintHouse',   width: 160, height: 160, color: 0xEC407A, radius: 20 },
+      { key: 'building_basketball',   width: 160, height: 160, color: 0xFF7043, radius: 20 },
+      // Coloring — lion regions (placeholder shapes)
+      { key: 'lion_ears',  width: 160, height: 35,  color: 0xFFCC02, radius: 8  },
+      { key: 'lion_face',  width: 100, height: 100, color: 0xFFCC02, radius: 50 },
+      { key: 'lion_mane',  width: 160, height: 160, color: 0xFF8F00, radius: 80 },
+      { key: 'lion_body',  width: 200, height: 140, color: 0xFFB300, radius: 10 },
+      { key: 'lion_tail',  width: 25,  height: 80,  color: 0xFFB300, radius: 6  },
+      // Coloring — palette circles
+      { key: 'color_red',    width: 90, height: 90, color: 0xE53935, radius: 45 },
+      { key: 'color_yellow', width: 90, height: 90, color: 0xFDD835, radius: 45 },
+      { key: 'color_orange', width: 90, height: 90, color: 0xFF6D00, radius: 45 },
+      { key: 'color_green',  width: 90, height: 90, color: 0x43A047, radius: 45 },
+      { key: 'color_blue',   width: 90, height: 90, color: 0x1E88E5, radius: 45 },
+      { key: 'color_purple', width: 90, height: 90, color: 0x8E24AA, radius: 45 },
+      // Basketball
+      { key: 'ball_basketball', width: 80, height: 80, color: 0xFF5722, radius: 40 },
+      { key: 'hoop_back',       width: 160, height: 20, color: 0xBF360C, radius: 4 },
+      // Stickers
+      { key: 'sticker_lion',        width: 100, height: 100, color: 0xFFAA00, radius: 50 },
+      { key: 'sticker_star',        width: 100, height: 100, color: 0xFFDD00, radius: 8  },
+      { key: 'sticker_paintbrush',  width: 30,  height: 100, color: 0x884400, radius: 6  },
+      { key: 'sticker_basketball',  width: 100, height: 100, color: 0xFF6600, radius: 50 },
     ];
 
     defs.forEach(({ key, width, height, color, radius = 0 }) => {
@@ -73,6 +97,11 @@ export class BootScene extends Phaser.Scene {
       ['voice_tiger',       'assets/audio/voice/tiger.mp3'],
       ['voice_bunny',       'assets/audio/voice/bunny.mp3'],
       ['voice_greatjob',    'assets/audio/voice/greatjob.mp3'],
+      ['sfx_swish',         'assets/audio/sfx/swish.mp3'],
+      ['sfx_bounce_ball',   'assets/audio/sfx/bounce_ball.mp3'],
+      ['sfx_tap_color',     'assets/audio/sfx/tap_color.mp3'],
+      ['voice_coloring',    'assets/audio/voice/coloring.mp3'],
+      ['voice_basketball',  'assets/audio/voice/basketball.mp3'],
     ];
     entries.forEach(([key, src]) => AudioManager.register(key, src));
   }
