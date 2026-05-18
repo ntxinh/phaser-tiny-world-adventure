@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import AudioManager from '../audio/AudioManager';
 import SaveManager from '../save/SaveManager';
+import { bounceIn } from '../animations/AnimationHelpers';
 
 interface StickerDef {
   texture: string;
@@ -73,20 +74,7 @@ export class RewardScene extends Phaser.Scene {
       fontStyle: 'bold',
     }).setOrigin(0.5);
 
-    this.tweens.add({
-      targets: sticker,
-      scale: 1.3,
-      duration: 200,
-      ease: 'Back.Out',
-      onComplete: () => {
-        this.tweens.add({
-          targets: sticker,
-          scale: 1.0,
-          duration: 200,
-          ease: 'Sine.Out',
-        });
-      },
-    });
+    bounceIn(this, sticker);
 
     const data = SaveManager.getData();
     if (!data.stickers.includes(def.texture)) {
