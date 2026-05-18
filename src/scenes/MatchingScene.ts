@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import AudioManager from '../audio/AudioManager';
 import { BackButton } from '../ui/BackButton';
+import { squashStretch, celebrationParticles } from '../animations/AnimationHelpers';
 
 interface Pair {
   itemTexture: string;
@@ -88,6 +89,8 @@ export class MatchingScene extends Phaser.Scene {
         go.x = dropZone.x;
         go.y = dropZone.y;
         go.setScale(1.0).disableInteractive();
+        squashStretch(this, go);
+        celebrationParticles(this, dropZone.x, dropZone.y);
         this.matchedCount++;
         AudioManager.playSfx('sfx_success');
         if (this.matchedCount === this.pairs.length) {
