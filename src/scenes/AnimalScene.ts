@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import AudioManager from '../audio/AudioManager';
 import { BackButton } from '../ui/BackButton';
+import { celebrationParticles } from '../animations/AnimationHelpers';
 
 interface AnimalConfig {
   texture: string;
@@ -82,6 +83,8 @@ export class AnimalScene extends Phaser.Scene {
       yoyo: true,
       ease: 'Back.Out',
     });
+
+    celebrationParticles(this, img.x, img.y);
 
     this.tappedSet.add(animal.texture);
 
