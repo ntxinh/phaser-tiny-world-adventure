@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import AudioManager from '../audio/AudioManager';
 import { BackButton } from '../ui/BackButton';
+import { celebrationParticles } from '../animations/AnimationHelpers';
 
 interface RegionDef {
   key: string;
@@ -105,6 +106,8 @@ export class ColoringScene extends Phaser.Scene {
       yoyo: true,
       ease: 'Back.Out',
     });
+
+    celebrationParticles(this, img.x, img.y);
 
     if (this.coloredSet.size === REGIONS.length && !this.rewardLaunched) {
       this.rewardLaunched = true;
