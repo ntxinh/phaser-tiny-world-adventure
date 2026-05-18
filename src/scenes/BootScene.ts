@@ -65,6 +65,9 @@ export class BootScene extends Phaser.Scene {
       { key: 'sticker_star',        width: 100, height: 100, color: 0xFFDD00, radius: 8  },
       { key: 'sticker_paintbrush',  width: 30,  height: 100, color: 0x884400, radius: 6  },
       { key: 'sticker_basketball',  width: 100, height: 100, color: 0xFF6600, radius: 50 },
+      // Phase 3 textures
+      { key: 'building_musicStage', width: 160, height: 160, color: 0x7E57C2, radius: 20 },
+      { key: 'btn_mic',             width: 140, height: 140, color: 0xE91E63, radius: 70 },
     ];
 
     defs.forEach(({ key, width, height, color, radius = 0 }) => {
@@ -102,6 +105,8 @@ export class BootScene extends Phaser.Scene {
       ['sfx_tap_color',     'assets/audio/sfx/tap_color.mp3'],
       ['voice_coloring',    'assets/audio/voice/coloring.mp3'],
       ['voice_basketball',  'assets/audio/voice/basketball.mp3'],
+      ['sfx_speech_pass',   'assets/audio/sfx/speech_pass.mp3'],
+      ['sfx_mic_start',     'assets/audio/sfx/mic_start.mp3'],
     ];
     entries.forEach(([key, src]) => AudioManager.register(key, src));
   }
