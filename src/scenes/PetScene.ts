@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import AudioManager from '../audio/AudioManager';
 import SaveManagerInstance from '../save/SaveManager';
-import { SaveManager, PetState } from '../save/SaveManager';
+import type { PetState } from '../save/SaveManager';
 import { BackButton } from '../ui/BackButton';
 import {
   bounceIn,
@@ -187,7 +187,15 @@ export class PetScene extends Phaser.Scene {
     const my = this.mascotRect.y;
 
     if (type === 'feed') {
-      bounceIn(this, this.mascotRect);
+      this.tweens.add({
+        targets: this.mascotRect,
+        scale: 1.2,
+        duration: 150,
+        ease: 'Back.Out',
+        onComplete: () => {
+          this.tweens.add({ targets: this.mascotRect, scale: 1.0, duration: 100, ease: 'Sine.Out' });
+        },
+      });
       celebrationParticles(this, mx, my + 70);
     } else if (type === 'wash') {
       squashStretch(this, this.mascotRect);
@@ -218,7 +226,15 @@ export class PetScene extends Phaser.Scene {
       });
       celebrationParticles(this, mx, my);
     } else if (type === 'learn') {
-      bounceIn(this, this.mascotRect);
+      this.tweens.add({
+        targets: this.mascotRect,
+        scale: 1.2,
+        duration: 150,
+        ease: 'Back.Out',
+        onComplete: () => {
+          this.tweens.add({ targets: this.mascotRect, scale: 1.0, duration: 100, ease: 'Sine.Out' });
+        },
+      });
       this.moodText.setText("Let's go learn! 📚");
       this.time.delayedCall(900, () => {
         this.petMgr.save();
@@ -296,5 +312,10 @@ export class PetScene extends Phaser.Scene {
     this.mascotRect.setFillStyle(MASCOT_COLORS[mascot]);
     this.mascotLabel.setText(MASCOT_LABELS[mascot]);
     this.moodText.setText(this.petMgr.getMoodText());
+  }
+
+  shutdown(): void {
+    this.tweens.killAll();
+    this.time.removeAllEvents();
   }
 }
