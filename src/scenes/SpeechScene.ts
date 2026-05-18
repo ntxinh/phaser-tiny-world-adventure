@@ -47,6 +47,10 @@ export class SpeechScene extends Phaser.Scene {
     }).setOrigin(0.5);
 
     this.showCategoryPicker();
+    this.events.once('shutdown', () => {
+      this.recognizer.stopListening();
+      this.tweens.killAll();
+    });
     new BackButton(this, () => {
       this.recognizer.stopListening();
       this.scene.start('HomeScene');
@@ -198,7 +202,10 @@ export class SpeechScene extends Phaser.Scene {
   }
 
   private clearObjects(arr: Phaser.GameObjects.GameObject[]): void {
-    arr.forEach(o => o.destroy());
+    arr.forEach(o => {
+      this.tweens.killTweensOf(o);
+      o.destroy();
+    });
     arr.length = 0;
   }
 }
