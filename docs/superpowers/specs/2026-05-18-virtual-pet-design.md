@@ -93,11 +93,15 @@ Added to `SaveData` as `pet: PetState`.
 
 Applied once in `PetScene.create()` via `PetStateManager.applyDecay()`. Values floored at 20 — pet never reaches a desperate state.
 
+Skip decay entirely when `lastVisit === 0` (first ever visit — pet starts fresh at defaults).
+
 ```
-hoursElapsed = (Date.now() - lastVisit) / 3_600_000
-hunger      -= min(hoursElapsed * 5, 60)  → floor 20
-energy      -= min(hoursElapsed * 4, 60)  → floor 20
-cleanliness -= min(hoursElapsed * 3, 60)  → floor 20
+if lastVisit === 0: skip (first visit, no decay)
+else:
+  hoursElapsed = (Date.now() - lastVisit) / 3_600_000
+  hunger      -= min(hoursElapsed * 5, 60)  → floor 20
+  energy      -= min(hoursElapsed * 4, 60)  → floor 20
+  cleanliness -= min(hoursElapsed * 3, 60)  → floor 20
 ```
 
 ### Activity ticks
