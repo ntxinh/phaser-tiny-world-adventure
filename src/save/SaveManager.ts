@@ -1,3 +1,11 @@
+export interface PetState {
+  mascot: 'dino' | 'bunny' | 'panda' | 'alien' | null;
+  hunger: number;
+  energy: number;
+  cleanliness: number;
+  lastVisit: number;
+}
+
 export interface SaveData {
   stars: number;
   stickers: string[];
@@ -6,6 +14,7 @@ export interface SaveData {
     bgmVolume: number;
     sfxVolume: number;
   };
+  pet: PetState;
 }
 
 const SAVE_KEY = 'twa_save';
@@ -15,6 +24,7 @@ const DEFAULT_SAVE: SaveData = {
   stickers: [],
   gamesUnlocked: ['zoo', 'toyStore'],
   settings: { bgmVolume: 0.5, sfxVolume: 1.0 },
+  pet: { mascot: null, hunger: 80, energy: 80, cleanliness: 80, lastVisit: 0 },
 };
 
 function cloneDefault(): SaveData {
@@ -23,6 +33,7 @@ function cloneDefault(): SaveData {
     stickers: [],
     gamesUnlocked: [...DEFAULT_SAVE.gamesUnlocked],
     settings: { ...DEFAULT_SAVE.settings },
+    pet: { ...DEFAULT_SAVE.pet },
   };
 }
 
@@ -37,7 +48,9 @@ export class SaveManager {
     const raw = localStorage.getItem(SAVE_KEY);
     if (!raw) return cloneDefault();
     try {
-      return JSON.parse(raw) as SaveData;
+      const parsed = JSON.parse(raw) as SaveData;
+      if (!parsed.pet) parsed.pet = { ...DEFAULT_SAVE.pet };
+      return parsed;
     } catch {
       return cloneDefault();
     }

@@ -81,4 +81,31 @@ describe('SaveManager', () => {
     sm.addSticker('paintbrush');
     expect(sm.getData().stickers.filter((k: string) => k === 'paintbrush').length).toBe(1);
   });
+
+  it('default save data includes pet state', () => {
+    const data = sm.getData();
+    expect(data.pet.mascot).toBeNull();
+    expect(data.pet.hunger).toBe(80);
+    expect(data.pet.energy).toBe(80);
+    expect(data.pet.cleanliness).toBe(80);
+    expect(data.pet.lastVisit).toBe(0);
+  });
+
+  it('pet state persists to localStorage', () => {
+    sm.getData().pet.mascot = 'dino';
+    sm.getData().pet.hunger = 50;
+    sm.save();
+    const restored = new SaveManager();
+    expect(restored.getData().pet.mascot).toBe('dino');
+    expect(restored.getData().pet.hunger).toBe(50);
+  });
+
+  it('reset restores default pet state', () => {
+    sm.getData().pet.mascot = 'bunny';
+    sm.getData().pet.hunger = 30;
+    sm.save();
+    sm.reset();
+    expect(sm.getData().pet.mascot).toBeNull();
+    expect(sm.getData().pet.hunger).toBe(80);
+  });
 });
