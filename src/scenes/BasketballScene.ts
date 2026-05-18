@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import AudioManager from '../audio/AudioManager';
 import { BackButton } from '../ui/BackButton';
+import { screenShake, celebrationParticles } from '../animations/AnimationHelpers';
 
 const HOOP_X = 770;
 const HOOP_Y = 210;
@@ -166,6 +167,8 @@ export class BasketballScene extends Phaser.Scene {
     this.scoreCount++;
     this.scoreText.setText(`${this.scoreCount} / ${WIN_SCORE}`);
     AudioManager.playSfx('sfx_swish');
+    screenShake(this);
+    celebrationParticles(this, HOOP_X, HOOP_Y);
 
     this.tweens.add({
       targets: this.scoreText,
