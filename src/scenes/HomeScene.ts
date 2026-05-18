@@ -35,11 +35,17 @@ export class HomeScene extends Phaser.Scene {
     }).setOrigin(1, 0.5);
 
     const musicStageUnlocked = stars >= 5;
-    const wasAlreadyTracked = SaveManager.getData().gamesUnlocked.includes('musicStage');
-
-    if (musicStageUnlocked && !wasAlreadyTracked) {
+    const musicWasTracked = SaveManager.getData().gamesUnlocked.includes('musicStage');
+    if (musicStageUnlocked && !musicWasTracked) {
       SaveManager.unlockGame('musicStage');
       this.time.delayedCall(400, () => unlockCelebration(this));
+    }
+
+    const petHouseUnlocked = stars >= 10;
+    const petWasTracked = SaveManager.getData().gamesUnlocked.includes('petHouse');
+    if (petHouseUnlocked && !petWasTracked) {
+      SaveManager.unlockGame('petHouse');
+      this.time.delayedCall(800, () => unlockCelebration(this));
     }
 
     const buildings: BuildingConfig[] = [
@@ -53,7 +59,12 @@ export class HomeScene extends Phaser.Scene {
         label:       musicStageUnlocked ? 'Music Stage' : '?',
         targetScene: musicStageUnlocked ? 'SpeechScene' : null,
       },
-      { texture: 'building_locked', x: 720, y: 560, label: '?', targetScene: null },
+      {
+        texture:     petHouseUnlocked ? 'building_petHouse' : 'building_locked',
+        x: 720, y: 560,
+        label:       petHouseUnlocked ? 'Pet House' : '?',
+        targetScene: petHouseUnlocked ? 'PetScene' : null,
+      },
     ];
 
     buildings.forEach(({ texture, x, y, label, targetScene }) => {
