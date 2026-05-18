@@ -68,6 +68,8 @@ export class BootScene extends Phaser.Scene {
       // Phase 3 textures
       { key: 'building_musicStage', width: 160, height: 160, color: 0x7E57C2, radius: 20 },
       { key: 'btn_mic',             width: 140, height: 140, color: 0xE91E63, radius: 70 },
+      // Phase 4 textures
+      { key: 'building_petHouse',   width: 160, height: 160, color: 0xFF8F00, radius: 20 },
     ];
 
     defs.forEach(({ key, width, height, color, radius = 0 }) => {
