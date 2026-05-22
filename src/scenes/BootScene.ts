@@ -70,6 +70,14 @@ export class BootScene extends Phaser.Scene {
       { key: 'btn_mic',             width: 140, height: 140, color: 0xE91E63, radius: 70 },
       // Phase 4 textures
       { key: 'building_petHouse',   width: 160, height: 160, color: 0xFF8F00, radius: 20 },
+      // Paint House UI
+      { key: 'btn_save_art',      width: 200, height: 75,  color: 0xEC407A, radius: 22 },
+      { key: 'btn_paint_brush',   width: 72,  height: 72,  color: 0x1E88E5, radius: 36 },
+      { key: 'btn_paint_eraser',  width: 72,  height: 72,  color: 0x78909C, radius: 36 },
+      { key: 'btn_paint_undo',    width: 72,  height: 72,  color: 0xFF8F00, radius: 36 },
+      { key: 'btn_paint_redo',    width: 72,  height: 72,  color: 0x43A047, radius: 36 },
+      { key: 'paint_bubble',      width: 230, height: 72,  color: 0xFFFDE7, radius: 22 },
+      { key: 'svg_thumb',         width: 115, height: 115, color: 0xFFF9C4, radius: 20 },
     ];
 
     defs.forEach(({ key, width, height, color, radius = 0 }) => {
@@ -109,6 +117,9 @@ export class BootScene extends Phaser.Scene {
       ['voice_basketball',  'assets/audio/voice/basketball.mp3'],
       ['sfx_speech_pass',   'assets/audio/sfx/speech_pass.mp3'],
       ['sfx_mic_start',     'assets/audio/sfx/mic_start.mp3'],
+      ['bgm_paint',    'assets/audio/bgm/paint.mp3'],
+      ['sfx_brush',    'assets/audio/sfx/brush.mp3'],
+      ['sfx_save_art', 'assets/audio/sfx/save_art.mp3'],
     ];
     entries.forEach(([key, src]) => AudioManager.register(key, src));
   }
