@@ -124,8 +124,11 @@ export class ColoringScene extends Phaser.Scene {
       callback: () => this.autosave(),
     });
 
-    // shutdown autosave
+    // shutdown — clean up input listeners, timers, mascot
     this.events.once('shutdown', () => {
+      this.input.off('pointerdown');
+      this.input.off('pointermove');
+      this.input.off('pointerup');
       this.autosave();
       this.mascot.destroy();
       this.autosaveTimer.remove();
@@ -160,7 +163,7 @@ export class ColoringScene extends Phaser.Scene {
 
   private autosave(): void {
     this.paintCanvas.snapshot((dataUrl) => {
-      this.saveManager.save(this.activeSvgId, dataUrl).catch(() => { /* silent */ });
+      this.saveManager.save(this.activeSvgId, dataUrl).catch((e) => console.warn('autosave failed', e));
     });
   }
 
@@ -222,7 +225,7 @@ export class ColoringScene extends Phaser.Scene {
         this.paintCanvas.clear();
         this.undoManager.clear();
         this.syncUndoButtons();
-        btns.forEach(b => (b as Phaser.GameObjects.GameObject & { destroy(): void }).destroy());
+        btns.forEach(b => (b as Phaser.GameObjects.Image | Phaser.GameObjects.Text | Phaser.GameObjects.Rectangle).destroy());
         this.isFirstStroke = true;
         AudioManager.playSfx('sfx_brush');
       });
