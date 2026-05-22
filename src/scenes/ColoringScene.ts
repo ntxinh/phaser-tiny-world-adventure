@@ -68,7 +68,9 @@ export class ColoringScene extends Phaser.Scene {
     this.brushManager = new BrushManager();
     this.undoManager  = new UndoManager(this.paintCanvas);
 
-    // UI components
+    // UI components — mascot must be created first (palette callback calls cheer())
+    this.mascot = new HelperMascot(this);
+
     new ColorPalette(this, (color) => {
       this.brushManager.setColor(color);
       AudioManager.playSfx('sfx_brush');
@@ -83,8 +85,6 @@ export class ColoringScene extends Phaser.Scene {
     });
     this.toolPanel.setCanUndo(false);
     this.toolPanel.setCanRedo(false);
-
-    this.mascot = new HelperMascot(this);
 
     // save button
     this.add.image(940, 32, 'btn_save_art')
